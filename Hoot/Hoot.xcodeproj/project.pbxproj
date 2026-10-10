@@ -8,12 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9CC0A407307981E20003A5A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC0A406307981E20003A5A5 /* AppDelegate.swift */; };
-		9CC0A40B307981E20003A5A5 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 9CC0A409307981E20003A5A5 /* Main.html */; };
-		9CC0A40D307981E20003A5A5 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CC0A40C307981E20003A5A5 /* Icon.png */; };
-		9CC0A40F307981E20003A5A5 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9CC0A40E307981E20003A5A5 /* Style.css */; };
-		9CC0A411307981E20003A5A5 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 9CC0A410307981E20003A5A5 /* Script.js */; };
-		9CC0A413307981E20003A5A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC0A412307981E20003A5A5 /* ViewController.swift */; };
-		9CC0A416307981E20003A5A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC0A414307981E20003A5A5 /* Main.storyboard */; };
 		9CC0A418307981E30003A5A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CC0A417307981E30003A5A5 /* Assets.xcassets */; };
 		9CC0A41F307981E40003A5A5 /* Hoot Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9CC0A41E307981E40003A5A5 /* Hoot Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9CC0A424307981E40003A5A5 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC0A423307981E40003A5A5 /* SafariWebExtensionHandler.swift */; };
@@ -53,12 +47,6 @@
 /* Begin PBXFileReference section */
 		9CC0A403307981E20003A5A5 /* Hoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CC0A406307981E20003A5A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9CC0A40A307981E20003A5A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
-		9CC0A40C307981E20003A5A5 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		9CC0A40E307981E20003A5A5 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
-		9CC0A410307981E20003A5A5 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
-		9CC0A412307981E20003A5A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9CC0A415307981E20003A5A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9CC0A417307981E30003A5A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CC0A419307981E30003A5A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CC0A41E307981E40003A5A5 /* Hoot Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Hoot Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,24 +99,10 @@
 			isa = PBXGroup;
 			children = (
 				9CC0A406307981E20003A5A5 /* AppDelegate.swift */,
-				9CC0A412307981E20003A5A5 /* ViewController.swift */,
-				9CC0A414307981E20003A5A5 /* Main.storyboard */,
 				9CC0A417307981E30003A5A5 /* Assets.xcassets */,
 				9CC0A419307981E30003A5A5 /* Info.plist */,
-				9CC0A408307981E20003A5A5 /* Resources */,
 			);
 			path = Hoot;
-			sourceTree = "<group>";
-		};
-		9CC0A408307981E20003A5A5 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				9CC0A409307981E20003A5A5 /* Main.html */,
-				9CC0A40C307981E20003A5A5 /* Icon.png */,
-				9CC0A40E307981E20003A5A5 /* Style.css */,
-				9CC0A410307981E20003A5A5 /* Script.js */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		9CC0A422307981E40003A5A5 /* Hoot Extension */ = {
@@ -237,12 +211,7 @@
 		9CC0A401307981E20003A5A5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				9CC0A40D307981E20003A5A5 /* Icon.png in Resources */,
-				9CC0A416307981E20003A5A5 /* Main.storyboard in Resources */,
-				9CC0A411307981E20003A5A5 /* Script.js in Resources */,
-				9CC0A40B307981E20003A5A5 /* Main.html in Resources */,
 				9CC0A418307981E30003A5A5 /* Assets.xcassets in Resources */,
-				9CC0A40F307981E20003A5A5 /* Style.css in Resources */,
 			);
 		};
 		9CC0A41C307981E40003A5A5 /* Resources */ = {
@@ -265,7 +234,6 @@
 		9CC0A3FF307981E20003A5A5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
-				9CC0A413307981E20003A5A5 /* ViewController.swift in Sources */,
 				9CC0A407307981E20003A5A5 /* AppDelegate.swift in Sources */,
 			);
 		};
@@ -285,24 +253,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		9CC0A409307981E20003A5A5 /* Main.html */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9CC0A40A307981E20003A5A5 /* Base */,
-			);
-			name = Main.html;
-			sourceTree = "<group>";
-		};
-		9CC0A414307981E20003A5A5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9CC0A415307981E20003A5A5 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		9CC0A426307981E40003A5A5 /* Debug configuration for PBXProject "Hoot" */ = {
@@ -510,7 +460,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Hoot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -521,8 +471,6 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
-					"-framework",
-					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID_PREFIX).Hoot";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -553,7 +501,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Hoot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -564,8 +512,6 @@
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
-					"-framework",
-					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID_PREFIX).Hoot";
 				PRODUCT_NAME = "$(TARGET_NAME)";

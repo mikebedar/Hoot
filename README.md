@@ -22,11 +22,11 @@ brew install --cask mikebedar/tap/hoot
 open -a Hoot
 ```
 
-Then, in **Safari → Settings → Extensions**, tick **Hoot** and allow it on youtube.com. Update later with `brew upgrade --cask hoot`.
+Opening Hoot takes you straight to it in **Safari → Settings → Extensions**: tick **Hoot** and allow it on youtube.com. Update later with `brew upgrade --cask hoot`.
 
 ### Download
 
-Grab `Hoot-<version>.zip` from the [latest release](../../releases/latest), unzip it, move **Hoot** to your Applications folder, and open it once. Then turn it on in Safari as above. The app is signed and notarized by Apple, so it opens without warnings.
+Grab `Hoot-<version>.zip` from the [latest release](../../releases/latest), unzip it, move **Hoot** to your Applications folder, and open it. It takes you to Safari's Extensions settings: tick **Hoot** and allow it on youtube.com. The app is signed and notarized by Apple, so it opens without warnings.
 
 ### Build it yourself
 
@@ -40,7 +40,7 @@ If you'd rather build Hoot from the source code, you don't need to write any cod
    zsh install.sh
    ```
    This builds Hoot, puts it in your Applications folder, and opens it. If your Apple ID belongs to more than one developer team, the installer asks which one to use.
-5. **Turn Hoot on in Safari:** in **Safari → Settings → Extensions**, tick **Hoot**, then allow it on youtube.com.
+5. **Turn Hoot on in Safari:** the installer opens Hoot, which takes you to **Safari → Settings → Extensions**. Tick **Hoot**, then allow it on youtube.com.
 
 That's it. Open any YouTube video.
 
@@ -51,6 +51,7 @@ To **uninstall**, untick Hoot in Safari's Extensions settings and drag Hoot out 
 ## Using Hoot
 
 - **The layout is automatic.** On every video page you get the video at full width (never taller than your window), then the title, description and comments. The sidebar of suggestions, end-screen video walls, info cards and promo shelves are always hidden.
+- **The Hoot app has no window or Dock icon.** Opening it just takes you to Hoot in Safari's Extensions settings. Everything else happens in Safari.
 - **The owl button** in Safari's toolbar opens Hoot's settings:
   - **Enable Hoot**: the master switch. Turn it off to see YouTube as normal.
   - **Watch page**: hide comments, hide live chat and Ask (AI), auto-expand the description, turn off autoplay-next, and turn off YouTube's ambient glow behind the video.
