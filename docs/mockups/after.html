@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="mockup.css">
+<style>
+  .page { padding: 12px 16px 24px; }
+  .player { height: 657px; }           /* 1168px wide at 16:9 */
+  .below { margin-top: 24px; }
+  .card { margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="chrome">
+    <div class="lights"><i></i><i></i><i></i></div>
+    <div class="nav"><span>‹</span><span>›</span></div>
+    <div class="ext"><img src="../../extension/icons/toolbar-32.png" alt=""></div>
+    <div class="address"><span class="lock">●</span> youtube.com/watch?v=hoot</div>
+    <div class="right"><span>⇪</span><span>＋</span><span>⧉</span></div>
+  </div>
+
+  <div class="site-header">
+    <div class="burger"><i></i><i></i><i></i></div>
+    <div class="search">Search</div>
+    <div class="circle"></div>
+    <div class="circle avatar"></div>
+  </div>
+
+  <div class="page">
+    <div class="player">
+      <!-- The "video": the Hoot owl on a branch at dusk. -->
+      <svg class="scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1b2a47"/><stop offset=".65" stop-color="#3b4f7c"/><stop offset="1" stop-color="#7a6a8f"/>
+          </linearGradient>
+          <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#D99A5B"/><stop offset="1" stop-color="#B8763C"/>
+          </linearGradient>
+          <radialGradient id="glow" cx=".5" cy=".5" r=".5">
+            <stop offset="0" stop-color="#f4e9c8" stop-opacity=".35"/><stop offset="1" stop-color="#f4e9c8" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#sky)"/>
+        <g fill="#fff" opacity=".8">
+          <circle cx="140" cy="90" r="2"/><circle cx="310" cy="170" r="1.5"/><circle cx="480" cy="70" r="2.2"/>
+          <circle cx="620" cy="140" r="1.4"/><circle cx="980" cy="60" r="1.8"/><circle cx="1100" cy="180" r="1.3"/>
+          <circle cx="1450" cy="120" r="2"/><circle cx="1520" cy="260" r="1.5"/><circle cx="220" cy="300" r="1.4"/>
+          <circle cx="860" cy="110" r="1.2"/><circle cx="1330" cy="330" r="1.4"/><circle cx="80" cy="420" r="1.6"/>
+        </g>
+        <circle cx="1240" cy="210" r="150" fill="url(#glow)"/>
+        <mask id="crescent"><rect width="1600" height="900" fill="#fff"/><circle cx="1272" cy="188" r="62" fill="#000"/></mask>
+        <circle cx="1240" cy="210" r="70" fill="#f4e9c8" mask="url(#crescent)"/>
+        <!-- distant hills -->
+        <path d="M0 760 Q260 650 520 720 T1040 700 T1600 690 V900 H0 Z" fill="#2a2440"/>
+        <path d="M0 820 Q300 760 640 800 T1280 790 T1600 800 V900 H0 Z" fill="#1d1a2e"/>
+        <!-- branch -->
+        <path d="M250 690 Q700 668 1150 684 T1520 650" stroke="#4a3527" stroke-width="26" fill="none" stroke-linecap="round"/>
+        <path d="M1190 684 Q1260 640 1300 600" stroke="#4a3527" stroke-width="14" fill="none" stroke-linecap="round"/>
+        <ellipse cx="1310" cy="590" rx="34" ry="16" fill="#3f6b4a" transform="rotate(-30 1310 590)"/>
+        <!-- the owl (same artwork as the app icon) -->
+        <g transform="translate(288 -58)">
+          <path d="M332 330 L372 222 L446 300 Q512 284 578 300 L652 222 L692 330 Q742 420 730 560 Q714 724 512 744 Q310 724 294 560 Q282 420 332 330 Z" fill="url(#body)"/>
+          <ellipse cx="512" cy="628" rx="128" ry="104" fill="#F3DDB8"/>
+          <path d="M452 600 q14 14 28 0 M496 628 q14 14 28 0 M540 600 q14 14 28 0 M474 660 q14 14 28 0 M518 660 q14 14 28 0" stroke="#D8B27E" stroke-width="10" fill="none" stroke-linecap="round"/>
+          <circle cx="430" cy="440" r="104" fill="#F3DDB8"/><circle cx="594" cy="440" r="104" fill="#F3DDB8"/>
+          <circle cx="430" cy="440" r="76" fill="#fff"/><circle cx="594" cy="440" r="76" fill="#fff"/>
+          <circle cx="436" cy="446" r="44" fill="#1C2A44"/><circle cx="600" cy="446" r="44" fill="#1C2A44"/>
+          <circle cx="452" cy="428" r="14" fill="#fff"/><circle cx="616" cy="428" r="14" fill="#fff"/>
+          <path d="M488 512 L536 512 L512 556 Z" fill="#F2A93B"/>
+          <path d="M452 742 v-14 M470 742 v-18 M488 742 v-14 M536 742 v-14 M554 742 v-18 M572 742 v-14" stroke="#F2A93B" stroke-width="12" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <div class="controls">
+        <div class="progress"><b></b></div>
+        <div class="buttons">
+          <svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8.5a5 5 0 010 7" stroke="#fff" stroke-width="2" fill="none"/></svg>
+          <span>19:42 / 58:10</span>
+          <span class="spacer"></span>
+          <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2" fill="none" stroke="#fff" stroke-width="2"/><path d="M7 11h3M7 14h5M13 11h4M14 14h3" stroke="#fff" stroke-width="1.6"/></svg>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2" fill="none" stroke="#fff" stroke-width="2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" stroke="#fff" stroke-width="2.2" fill="none"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="below">
+      <div class="title">Owls at Dusk: An Hour of Quiet Forest Sounds</div>
+      <div class="meta-row">
+        <div class="circle" style="background: linear-gradient(135deg,#7a6a8f,#2a3b5f)"></div>
+        <div class="channel"><b>Night Birds</b><small>248K subscribers</small></div>
+        <span class="pill white" style="margin-left:8px">Subscribe</span>
+        <span class="spacer"></span>
+        <span class="pill">♡ 12K</span><span class="pill">Share</span><span class="pill">Save</span><span class="pill">···</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Description</h3>
+      <div class="stats"><span>12K<em>Likes</em></span><span>184,302<em>Views</em></span><span>Oct 9<em>2026</em></span></div>
+      <div class="desc">
+        <p>An unhurried hour with a tawny owl on its favourite branch, recorded at dusk in an old oak wood. No music, no narration: just the wind, the leaves and the occasional hoot.</p>
+        <p>00:00 Settling in · 12:40 First call · 31:05 A visitor · 47:20 Moonrise</p>
+        <p>Recorded with a hide and a long lens; no owls were disturbed. More at <span class="link">nightbirds.example</span></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Comments <span style="color:#aaa; font-weight:400; font-size:15px">1,284</span></h3>
+      <div class="comment"><div class="circle" style="background:linear-gradient(135deg,#d99a5b,#b8763c)"></div>
+        <div><b>@quietwatcher<small>2 days ago</small></b><p>The moment at 12:40 when it finally calls out. I've watched this three times now.</p></div></div>
+      <div class="comment"><div class="circle" style="background:linear-gradient(135deg,#3f6b4a,#2a3b5f)"></div>
+        <div><b>@leafandlantern<small>1 day ago</small></b><p>Perfect background for working. Thank you for not adding music.</p></div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
