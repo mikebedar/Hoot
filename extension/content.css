@@ -1,0 +1,321 @@
+/*
+ * Every rule is gated on attributes content.js sets on <html>, so toggles apply
+ * instantly (no reload) and nothing changes when the extension is disabled.
+ * Selectors target YouTube's stable element ids / custom-element tag names
+ * rather than its generated class names, which change far more often.
+ */
+
+/* ---------- Single-column layout ----------
+ * Stack the watch page vertically: player full width on top, then the title/description/
+ * comments underneath at the same width.
+ * YouTube currently serves two watch layouts, and both use the same ytd-watch-flexy shell:
+ *  - classic: description + comments live in #below, sidebar (#secondary) holds related videos
+ *  - 2026 redesign (flexy has [fixed-default-panels]/[show-fixed-side-menu]): description and
+ *    comments are slide-out engagement panels inside #secondary, opened from a right-hand rail.
+ * #secondary is reflowed below #primary rather than hidden, so those panels can be shown inline.
+ */
+/* One vertical rhythm for the stacked page: header → video → title row → description → comments. */
+html[data-ytf-enabled][data-ytf-focus-layout] {
+  --ytf-gap: 24px;      /* between video, title row, description and comments */
+  --ytf-top-gap: 12px;  /* between the header and the video */
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #primary {
+  padding-top: var(--ytf-top-gap) !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy ytd-watch-metadata {
+  margin-top: var(--ytf-gap) !important;
+  margin-bottom: 0 !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary {
+  margin-top: var(--ytf-gap) !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary #panels {
+  gap: var(--ytf-gap) !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary #panels > ytd-engagement-panel-section-list-renderer {
+  margin: 0 !important;
+}
+
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #columns {
+  flex-direction: column !important;
+  align-items: center !important;
+  max-width: none !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #primary {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  box-sizing: border-box !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #primary-inner {
+  max-width: none !important;
+}
+/* Content under the video lines up with the player's edges (16px gutter). */
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #below {
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary {
+  /* #secondary is a sibling of #primary, so it carries the same 16px gutter itself. */
+  width: calc(100% - 32px) !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 0 16px !important;
+  box-sizing: content-box !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary,
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary-inner,
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary #panels {
+  /* The redesign fades the whole column out (opacity 0 + visibility hidden) whenever its
+   * slide-out panel is closed; we always want it visible since it now sits below the video. */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary {
+  /* YouTube sometimes makes this a flex row, which shrink-wraps and centres the panels. */
+  display: block !important;
+  position: static !important;
+  height: auto !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary-inner {
+  position: static !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--ytf-gap) !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary-split-scroll-spacer,
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #persistent-panel-container,
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #playlist:not(:has(#items > *)),
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #fixed-side-menu {
+  display: none !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #playlist {
+  order: -1 !important;
+  max-height: 60vh !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary #panels {
+  position: static !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Redesign, wide windows: show the description and comments panels inline (description
+ * first) and keep every other panel (Ask, transcript, search…) out of the way. Comments load
+ * as you scroll down to them. Scoped to #secondary on purpose: in narrow windows YouTube moves
+ * #panels into #below and shows its own inline description + comments, so we leave it alone.
+ * Everything here is keyed to attributes YouTube itself toggles on resize, so it follows
+ * live window resizing without any script. */
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy:is([fixed-default-panels], [show-fixed-side-menu]) #secondary #panels > ytd-engagement-panel-section-list-renderer {
+  display: none !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy:is([fixed-default-panels], [show-fixed-side-menu]) #secondary #panels > ytd-engagement-panel-section-list-renderer:is([target-id="engagement-panel-structured-description"], [target-id="engagement-panel-comments-section"]) {
+  display: flex !important;
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  transform: none !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary #panels > [target-id="engagement-panel-structured-description"] { order: 1 !important; }
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary #panels > [target-id="engagement-panel-comments-section"] { order: 2 !important; }
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #panels > :is([target-id="engagement-panel-structured-description"], [target-id="engagement-panel-comments-section"]) #content {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #panels > :is([target-id="engagement-panel-structured-description"], [target-id="engagement-panel-comments-section"]) #visibility-button {
+  display: none !important;
+}
+
+/* Inline description: the panel repeats the title, and shows likes/views/date as big
+ * colour-sampled tiles spread across the full width. Drop the duplicate title and turn the
+ * tiles into one compact, left-aligned row of neutral pills. */
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary [target-id="engagement-panel-structured-description"] ytd-video-description-header-renderer #title {
+  display: none !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary [target-id="engagement-panel-structured-description"] ytd-video-description-header-renderer #factoids {
+  justify-content: flex-start !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin: 0 0 12px !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary [target-id="engagement-panel-structured-description"] #factoids :is(factoid-renderer, view-count-factoid-renderer) {
+  flex: none !important;
+  margin: 0 !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary [target-id="engagement-panel-structured-description"] #factoids .ytwFactoidRendererFactoid {
+  flex-direction: row !important;
+  align-items: baseline !important;
+  gap: 6px !important;
+  height: auto !important;
+  min-width: 0 !important;
+  padding: 6px 12px !important;
+  border-radius: 999px !important;
+  background: var(--yt-spec-badge-chip-background, rgba(255, 255, 255, 0.1)) !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary [target-id="engagement-panel-structured-description"] #factoids .ytwFactoidRendererValue {
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: 500 !important;
+  color: var(--yt-spec-text-primary, #f1f1f1) !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary [target-id="engagement-panel-structured-description"] #factoids .ytwFactoidRendererLabel {
+  font-size: 13px !important;
+  line-height: 20px !important;
+  color: var(--yt-spec-text-secondary, #aaa) !important;
+}
+
+/* ---------- Full-width player ----------
+ * In fullscreen content.js removes the layout attributes, so none of this applies there. */
+/* Classic layout: theater mode puts the player in #full-bleed-container; let it grow to screen height. */
+html[data-ytf-enabled][data-ytf-fit-player-to-screen] ytd-watch-flexy[theater] #full-bleed-container,
+html[data-ytf-enabled][data-ytf-fit-player-to-screen] ytd-watch-flexy[full-bleed-player] #full-bleed-container {
+  height: min(56.25vw, calc(100vh - var(--ytd-masthead-height, 56px))) !important;
+  max-height: none !important;
+  min-height: 0 !important;
+}
+/* Redesign: the player stays in #primary and YouTube caps its height to leave room below it.
+ * Instead, size it to fill the window: full width, but never taller than the space between the
+ * header and the window bottom, with --ytf-top-gap above and the same gap below.
+ * YouTube publishes the video's aspect as two vars, so width = available height x aspect. */
+html[data-ytf-enabled][data-ytf-focus-layout][data-ytf-fit-player-to-screen] ytd-watch-flexy:not([theater]) #player-container-outer {
+  max-width: calc((100vh - var(--ytd-masthead-height, 56px) - 2 * var(--ytf-top-gap, 0px)) * var(--ytd-watch-flexy-width-ratio, 16) / var(--ytd-watch-flexy-height-ratio, 9)) !important;
+  margin: 0 auto !important;
+}
+
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #player-container-outer {
+  min-width: 0 !important; /* YouTube's 480px minimum would push the video off a short window */
+}
+/* Narrow windows: YouTube moves the player into the edge-to-edge #full-bleed-container.
+ * Give it the same top gap and side gutter as the wide layout. */
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy:not([is-two-columns_]):not([theater]) #full-bleed-container {
+  padding: var(--ytf-top-gap) 16px 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Square, frameless player. The redesign rounds the player (12px) and draws a blurred thumbnail
+ * backdrop behind it with a smaller radius, which shows as a faint outline around the video. */
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy :is(#player, #player-container-outer, #player-container-inner, #player-container, ytd-player, #container.ytd-player, #movie_player, .html5-video-container, video) {
+  border-radius: 0 !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy .player-container-background {
+  display: none !important;
+}
+
+/* ---------- Related / suggested videos ---------- */
+html[data-ytf-enabled][data-ytf-hide-related] ytd-watch-flexy #related,
+html[data-ytf-enabled][data-ytf-hide-related] ytd-watch-next-secondary-results-renderer {
+  display: none !important;
+}
+
+/* ---------- Live chat ---------- */
+html[data-ytf-enabled][data-ytf-hide-chat] ytd-watch-flexy #chat-container,
+html[data-ytf-enabled][data-ytf-hide-chat] ytd-live-chat-frame,
+html[data-ytf-enabled][data-ytf-hide-chat] ytd-watch-metadata #teaser-carousel,
+html[data-ytf-enabled][data-ytf-hide-chat] yt-video-description-youchat-section-view-model {
+  display: none !important;
+}
+
+/* ---------- Ambient mode glow ----------
+ * YouTube paints a blurred, colour-sampled canvas behind the player ("Ambient mode"). */
+html[data-ytf-enabled][data-ytf-hide-ambient] ytd-watch-flexy :is(#cinematics, #cinematics-container, #cinematics-full-bleed-container) {
+  display: none !important;
+}
+
+/* ---------- Comments ---------- */
+html[data-ytf-enabled][data-ytf-hide-comments] ytd-watch-flexy #comments,
+html[data-ytf-enabled][data-ytf-hide-comments] ytd-watch-metadata #comment-teaser,
+/* Same specificity as the focus-layout "show inline" rule, and later in the file, so it wins. */
+html[data-ytf-enabled][data-ytf-hide-comments] ytd-watch-flexy:is([fixed-default-panels], [show-fixed-side-menu]) #secondary #panels > ytd-engagement-panel-section-list-renderer:is([target-id="engagement-panel-comments-section"]) {
+  display: none !important;
+}
+
+/* ---------- Merch / tickets / promos ---------- */
+html[data-ytf-enabled][data-ytf-hide-shelves] ytd-watch-flexy #merch-shelf,
+html[data-ytf-enabled][data-ytf-hide-shelves] ytd-watch-flexy #ticket-shelf,
+html[data-ytf-enabled][data-ytf-hide-shelves] ytd-watch-flexy #shopping-timely-shelf,
+html[data-ytf-enabled][data-ytf-hide-shelves] ytd-watch-flexy #donation-shelf,
+html[data-ytf-enabled][data-ytf-hide-shelves] ytd-watch-flexy #offer-module,
+html[data-ytf-enabled][data-ytf-hide-shelves] ytd-watch-flexy #clarify-box,
+html[data-ytf-enabled][data-ytf-hide-shelves] ytd-merch-shelf-renderer,
+html[data-ytf-enabled][data-ytf-hide-shelves] ytd-banner-promo-renderer,
+html[data-ytf-enabled][data-ytf-hide-shelves] ytd-statement-banner-renderer {
+  display: none !important;
+}
+
+/* ---------- Player: end screens, pause overlay, fullscreen suggestion grid ---------- */
+html[data-ytf-enabled][data-ytf-hide-endscreen] #movie_player .ytp-ce-element,
+html[data-ytf-enabled][data-ytf-hide-endscreen] #movie_player .ytp-endscreen-content,
+html[data-ytf-enabled][data-ytf-hide-endscreen] #movie_player .html5-endscreen,
+html[data-ytf-enabled][data-ytf-hide-endscreen] #movie_player .videowall-endscreen,
+html[data-ytf-enabled][data-ytf-hide-endscreen] #movie_player .ytp-autonav-endscreen,
+html[data-ytf-enabled][data-ytf-hide-endscreen] #movie_player .ytp-pause-overlay,
+html[data-ytf-enabled][data-ytf-hide-endscreen] #movie_player .ytp-fullscreen-grid,
+html[data-ytf-enabled][data-ytf-hide-endscreen] #movie_player .ytp-fullerscreen-edu-button {
+  display: none !important;
+}
+
+/* ---------- Player: info cards / suggested actions ---------- */
+html[data-ytf-enabled][data-ytf-hide-info-cards] #movie_player .ytp-cards-teaser,
+html[data-ytf-enabled][data-ytf-hide-info-cards] #movie_player .ytp-cards-button,
+html[data-ytf-enabled][data-ytf-hide-info-cards] #movie_player .iv-branding,
+html[data-ytf-enabled][data-ytf-hide-info-cards] #movie_player .ytp-suggested-action,
+html[data-ytf-enabled][data-ytf-hide-info-cards] #movie_player .ytp-featured-product {
+  display: none !important;
+}
+
+/* ---------- Shorts ---------- */
+html[data-ytf-enabled][data-ytf-hide-shorts] ytd-reel-shelf-renderer,
+html[data-ytf-enabled][data-ytf-hide-shorts] ytd-rich-shelf-renderer[is-shorts],
+html[data-ytf-enabled][data-ytf-hide-shorts] ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
+html[data-ytf-enabled][data-ytf-hide-shorts] grid-shelf-view-model:has(ytm-shorts-lockup-view-model, ytm-shorts-lockup-view-model-v2),
+html[data-ytf-enabled][data-ytf-hide-shorts] ytd-item-section-renderer:has(> #contents > grid-shelf-view-model ytm-shorts-lockup-view-model-v2),
+html[data-ytf-enabled][data-ytf-hide-shorts] ytd-rich-item-renderer:has(a[href^="/shorts/"]),
+html[data-ytf-enabled][data-ytf-hide-shorts] ytd-video-renderer:has(a[href^="/shorts/"]),
+html[data-ytf-enabled][data-ytf-hide-shorts] ytd-grid-video-renderer:has(a[href^="/shorts/"]),
+html[data-ytf-enabled][data-ytf-hide-shorts] yt-lockup-view-model:has(a[href^="/shorts/"]),
+html[data-ytf-enabled][data-ytf-hide-shorts] ytd-guide-entry-renderer:has(a[title="Shorts"]),
+html[data-ytf-enabled][data-ytf-hide-shorts] ytd-mini-guide-entry-renderer[aria-label="Shorts"],
+html[data-ytf-enabled][data-ytf-hide-shorts] yt-tab-shape[tab-title="Shorts"],
+html[data-ytf-enabled][data-ytf-hide-shorts] yt-chip-cloud-chip-renderer:has(yt-formatted-string[title="Shorts"]) {
+  display: none !important;
+}
+
+/* ---------- Home feed ---------- */
+html[data-ytf-enabled][data-ytf-hide-home-feed] ytd-browse[page-subtype="home"] #primary,
+html[data-ytf-enabled][data-ytf-hide-home-feed] ytd-browse[page-subtype="home"] #header {
+  visibility: hidden !important;
+}
+
+/* ---------- Left nav ---------- */
+html[data-ytf-enabled][data-ytf-hide-guide] tp-yt-app-drawer#guide,
+html[data-ytf-enabled][data-ytf-hide-guide] ytd-mini-guide-renderer,
+html[data-ytf-enabled][data-ytf-hide-guide] ytd-masthead #guide-button {
+  display: none !important;
+}
+html[data-ytf-enabled][data-ytf-hide-guide] ytd-app ytd-page-manager {
+  margin-left: 0 !important;
+}

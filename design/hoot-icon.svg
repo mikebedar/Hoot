@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#34507A"/>
+      <stop offset="1" stop-color="#1C2A44"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D99A5B"/>
+      <stop offset="1" stop-color="#B8763C"/>
+    </linearGradient>
+  </defs>
+  <!-- macOS icon canvas: 824pt rounded square centred in 1024 -->
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#sky)"/>
+  <!-- moon -->
+  <circle cx="742" cy="262" r="58" fill="#F4E9C8" opacity="0.9"/>
+  <circle cx="768" cy="244" r="52" fill="#2F4A71"/>
+  <!-- perch (a clean, empty frame edge) -->
+  <rect x="236" y="736" width="552" height="34" rx="17" fill="#E9EEF6"/>
+  <!-- body with ear tufts -->
+  <path d="M332 330 L372 222 L446 300 Q512 284 578 300 L652 222 L692 330
+           Q742 420 730 560 Q714 724 512 744 Q310 724 294 560 Q282 420 332 330 Z" fill="url(#body)"/>
+  <!-- belly -->
+  <ellipse cx="512" cy="628" rx="128" ry="104" fill="#F3DDB8"/>
+  <path d="M452 600 q14 14 28 0 M496 628 q14 14 28 0 M540 600 q14 14 28 0 M474 660 q14 14 28 0 M518 660 q14 14 28 0"
+        stroke="#D8B27E" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <!-- facial discs -->
+  <circle cx="430" cy="440" r="104" fill="#F3DDB8"/>
+  <circle cx="594" cy="440" r="104" fill="#F3DDB8"/>
+  <!-- eyes -->
+  <circle cx="430" cy="440" r="76" fill="#FFFFFF"/>
+  <circle cx="594" cy="440" r="76" fill="#FFFFFF"/>
+  <circle cx="436" cy="446" r="44" fill="#1C2A44"/>
+  <circle cx="600" cy="446" r="44" fill="#1C2A44"/>
+  <circle cx="452" cy="428" r="14" fill="#FFFFFF"/>
+  <circle cx="616" cy="428" r="14" fill="#FFFFFF"/>
+  <!-- beak -->
+  <path d="M488 512 L536 512 L512 556 Z" fill="#F2A93B"/>
+  <!-- feet on the perch -->
+  <path d="M452 740 v-14 M470 740 v-18 M488 740 v-14 M536 740 v-14 M554 740 v-18 M572 740 v-14"
+        stroke="#F2A93B" stroke-width="12" stroke-linecap="round"/>
+</svg>
