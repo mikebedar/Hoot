@@ -22,7 +22,7 @@ brew install --cask mikebedar/tap/hoot
 open -a Hoot
 ```
 
-Opening Hoot takes you straight to it in **Safari → Settings → Extensions**: tick **Hoot** and allow it on youtube.com. Update later with `brew upgrade --cask hoot`.
+The first time, macOS asks whether to open an app downloaded from the internet; choose **Open**. Opening Hoot takes you straight to it in **Safari → Settings → Extensions**: tick **Hoot** and allow it on youtube.com. You only do this once; updates keep your settings. Update later with `brew upgrade --cask hoot`.
 
 ### Download
 
