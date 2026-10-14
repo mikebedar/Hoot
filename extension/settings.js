@@ -32,7 +32,12 @@ var OPTIONS = [
   { key: "hideGuide",         label: "Hide left navigation sidebar",    group: "Site-wide" },
 ];
 
+// Layout modes: "default" keeps the header, video and title row on screen (description and comments
+// below it); "fullframe" shows only the video, as large as the window allows.
+var LAYOUT_MODES = ["default", "fullframe"];
+
 var DEFAULTS = {
+  layoutMode: "default",
   enabled: true,
   hideComments: false, hideChat: true, expandDescription: false, disableAutoplay: true, hideAmbient: true,
   hideShorts: true, hideHomeFeed: false, hideGuide: false,

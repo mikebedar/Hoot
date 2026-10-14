@@ -13,6 +13,7 @@
   let settings = { ...DEFAULTS };
 
   const kebab = (s) => s.replace(/[A-Z]/g, (c) => "-" + c.toLowerCase());
+  const onWatchPage = () => location.pathname.startsWith("/watch");
 
   // ---------- Applying settings ----------
 
@@ -31,6 +32,7 @@
     // Every rule in content.css requires data-ytf-enabled, so dropping it in fallback puts the page
     // back exactly as YouTube made it.
     if (fallback) root.removeAttribute("data-ytf-enabled");
+    applyMode();
 
     // YouTube restores theater mode from this cookie on load, so set it before its scripts run.
     if (settings.enabled) {
@@ -38,6 +40,30 @@
     }
 
     if (runPageHooks) onPage();
+  }
+
+  // Layout mode ("default" or "fullframe"). Only set on video pages: Full Frame hides the header and
+  // stops page scrolling, which must never leak onto the home page, search results, etc.
+  function applyMode() {
+    if (settings.enabled && onWatchPage()) root.setAttribute("data-ytf-mode", settings.layoutMode);
+    else root.removeAttribute("data-ytf-mode");
+  }
+
+  // Default mode keeps the title row on screen under the video, so content.css needs its height,
+  // which changes when a long title wraps. Measure it whenever it changes.
+  let titleObserver = null;
+  let observedTitle = null;
+  function watchTitleRow() {
+    const meta = document.querySelector("ytd-watch-flexy:not([hidden]) ytd-watch-metadata");
+    if (!meta || meta === observedTitle) return !!meta;
+    titleObserver?.disconnect();
+    titleObserver = new ResizeObserver(([entry]) => {
+      const h = Math.ceil(entry.borderBoxSize?.[0]?.blockSize ?? entry.target.offsetHeight);
+      if (h > 0) root.style.setProperty("--ytf-title-h", `${h}px`); // 0 while hidden (Full Frame): keep the last value
+    });
+    titleObserver.observe(meta);
+    observedTitle = meta;
+    return true;
   }
 
   // ---------- Behaviours CSS can't do ----------
@@ -88,8 +114,10 @@
 
   function onPage() {
     if (!current()) return;
+    applyMode();
     scheduleCheck();
-    if (!settings.enabled || !location.pathname.startsWith("/watch")) return;
+    if (!settings.enabled || !onWatchPage()) return;
+    retry(watchTitleRow);
     retry(ensureTheater);
     if (settings.disableAutoplay) retry(ensureAutoplayOff);
     if (settings.expandDescription) retry(ensureDescriptionExpanded);
@@ -127,6 +155,8 @@
   function layoutLooksRight() {
     const flexy = document.querySelector("ytd-watch-flexy:not([hidden])");
     const player = document.querySelector("#movie_player");
+    // Full Frame shows nothing but the video, so just check the video is there and visible.
+    if (settings.layoutMode === "fullframe") return !!flexy && shown(player) && player.getBoundingClientRect().width > 200;
     const meta = flexy?.querySelector("ytd-watch-metadata");
     if (!flexy || !player || !shown(meta)) return false;
     const playerBottom = player.getBoundingClientRect().bottom - 1;

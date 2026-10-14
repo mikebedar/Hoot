@@ -24,12 +24,20 @@ function buildUI() {
   document.querySelectorAll("input[data-key]").forEach((input) => {
     input.onchange = () => saveSettings({ [input.dataset.key]: input.checked });
   });
+  document.querySelectorAll("[data-mode]").forEach((button) => {
+    button.onclick = () => saveSettings({ layoutMode: button.dataset.mode });
+  });
 }
 
 async function render() {
   const s = await loadSettings();
   document.body.classList.toggle("off", !s.enabled);
   document.querySelectorAll("input[data-key]").forEach((i) => { i.checked = !!s[i.dataset.key]; });
+  document.querySelectorAll("[data-mode]").forEach((b) => {
+    const on = b.dataset.mode === s.layoutMode;
+    b.classList.toggle("active", on);
+    b.setAttribute("aria-checked", String(on));
+  });
 }
 
 buildUI();

@@ -18,6 +18,9 @@
 html[data-ytf-enabled][data-ytf-focus-layout] {
   --ytf-gap: 24px;      /* between video, title row, description and comments */
   --ytf-top-gap: 12px;  /* between the header and the video */
+  /* Default mode keeps the title row on screen under the video: the gap, the title row itself
+   * (measured by content.js as --ytf-title-h, since long titles wrap) and a bottom margin. */
+  --ytf-below-video: calc(var(--ytf-gap) + var(--ytf-title-h, 84px) + var(--ytf-top-gap));
 }
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #primary {
   padding-top: var(--ytf-top-gap) !important;
@@ -190,19 +193,20 @@ html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary [target
 
 /* ---------- Full-width player ----------
  * In fullscreen content.js removes the layout attributes, so none of this applies there. */
-/* Classic layout: theater mode puts the player in #full-bleed-container; let it grow to screen height. */
+/* Classic layout: theater mode puts the player in #full-bleed-container; size it to the window,
+ * leaving room for what's kept below it (--ytf-below-video). */
 html[data-ytf-enabled][data-ytf-fit-player-to-screen] ytd-watch-flexy[theater] #full-bleed-container,
 html[data-ytf-enabled][data-ytf-fit-player-to-screen] ytd-watch-flexy[full-bleed-player] #full-bleed-container {
-  height: min(56.25vw, calc(100vh - var(--ytd-masthead-height, 56px))) !important;
+  height: min(56.25vw, calc(100vh - var(--ytd-masthead-height, 56px) - var(--ytf-below-video, 0px))) !important;
   max-height: none !important;
   min-height: 0 !important;
 }
 /* Redesign: the player stays in #primary and YouTube caps its height to leave room below it.
- * Instead, size it to fill the window: full width, but never taller than the space between the
- * header and the window bottom, with --ytf-top-gap above and the same gap below.
+ * Instead, size it to the window: full width, but never taller than the space between the header
+ * (plus --ytf-top-gap) and what's kept on screen below it (--ytf-below-video).
  * YouTube publishes the video's aspect as two vars, so width = available height x aspect. */
 html[data-ytf-enabled][data-ytf-focus-layout][data-ytf-fit-player-to-screen] ytd-watch-flexy:not([theater]) #player-container-outer {
-  max-width: calc((100vh - var(--ytd-masthead-height, 56px) - 2 * var(--ytf-top-gap, 0px)) * var(--ytd-watch-flexy-width-ratio, 16) / var(--ytd-watch-flexy-height-ratio, 9)) !important;
+  max-width: calc((100vh - var(--ytd-masthead-height, 56px) - var(--ytf-top-gap, 0px) - var(--ytf-below-video, 0px)) * var(--ytd-watch-flexy-width-ratio, 16) / var(--ytd-watch-flexy-height-ratio, 9)) !important;
   margin: 0 auto !important;
 }
 
@@ -223,6 +227,45 @@ html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy :is(#player, #play
 }
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy .player-container-background {
   display: none !important;
+}
+
+/* ---------- Full Frame mode ----------
+ * Only the video: no header, navigation, title, description or comments, and the player as large
+ * as the window allows, centred on black (like windowed fullscreen in a game). Every rule needs the
+ * extra [data-ytf-mode] attribute, so it outranks the Default rules above. */
+html[data-ytf-enabled][data-ytf-focus-layout][data-ytf-mode="fullframe"] {
+  --ytf-top-gap: 0px;
+  --ytf-below-video: 0px;
+  overflow: hidden !important;
+  background: #000 !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout][data-ytf-mode="fullframe"] ytd-app {
+  --ytd-masthead-height: 0px !important;
+  background: #000 !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout][data-ytf-mode="fullframe"] :is(#masthead-container, ytd-masthead, tp-yt-app-drawer#guide, ytd-mini-guide-renderer) {
+  display: none !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout][data-ytf-mode="fullframe"] ytd-page-manager {
+  margin: 0 !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout][data-ytf-mode="fullframe"] ytd-watch-flexy :is(#below, #secondary) {
+  display: none !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout][data-ytf-mode="fullframe"] ytd-watch-flexy :is(#columns, #primary, #primary-inner, #full-bleed-container) {
+  background: #000 !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout][data-ytf-mode="fullframe"] ytd-watch-flexy #primary {
+  padding: 0 !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout][data-ytf-mode="fullframe"] ytd-watch-flexy #primary-inner {
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+html[data-ytf-enabled][data-ytf-focus-layout][data-ytf-mode="fullframe"] ytd-watch-flexy:not([is-two-columns_]):not([theater]) #full-bleed-container {
+  padding: 0 !important;
 }
 
 /* ---------- Related / suggested videos ---------- */

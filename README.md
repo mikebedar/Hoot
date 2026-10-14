@@ -50,7 +50,9 @@ To **uninstall**, untick Hoot in Safari's Extensions settings and drag Hoot out 
 
 ## Using Hoot
 
-- **The layout is automatic.** On every video page you get the video at full width (never taller than your window), then the title, description and comments. The sidebar of suggestions, end-screen video walls, info cards and promo shelves are always hidden.
+- **The layout is automatic.** The sidebar of suggestions, end-screen video walls, info cards and promo shelves are always hidden. Pick one of two layouts in the popup:
+  - **Default:** the header, the video as large as fits, and the title row underneath, all without scrolling. The description and comments follow below.
+  - **Full Frame:** just the video, as large as the window allows, centred on black, like windowed fullscreen in a game. Switch back from the popup.
 - **The Hoot app has no window or Dock icon.** Opening it just takes you to Hoot in Safari's Extensions settings. Everything else happens in Safari.
 - **The owl button** in Safari's toolbar opens Hoot's settings:
   - **Enable Hoot**: the master switch. Turn it off to see YouTube as normal.
@@ -62,7 +64,7 @@ To **uninstall**, untick Hoot in Safari's Extensions settings and drag Hoot out 
 
 ## Features
 
-- **Single-column watch page** with a square, frameless, full-width player and the title, description and comments underneath at the same width.
+- **Two layouts**: *Default* (header, video and title row on screen, with the description and comments below at the same width) and *Full Frame* (just the video, filling the window). Both use a square, frameless player.
 - **Works with both YouTube layouts**: the classic one, and the 2026 redesign where description and comments live in slide-out side panels. Hoot shows those panels inline.
 - **Fails safe**: if the page doesn't look the way Hoot expects, Hoot steps back on that page and shows the sad owl.
 - **Survives live window resizing.** The layout is pure CSS keyed to YouTube's own layout state, so it never snaps back.
