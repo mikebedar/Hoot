@@ -13,6 +13,7 @@
 		9CC0A424307981E40003A5A5 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC0A423307981E40003A5A5 /* SafariWebExtensionHandler.swift */; };
 		9CC0A438307981E40003A5A5 /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 9CC0A430307981E40003A5A5 /* popup.js */; };
 		ECCB85536737B56EB29DB762 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 673CD7115F7B68AD24B45B02 /* background.js */; };
+		152EB75DA70538C0F22ECEC9 /* page.js in Resources */ = {isa = PBXBuildFile; fileRef = C7F6EF96A21DCBA1BB87129F /* page.js */; };
 		9CC0A439307981E40003A5A5 /* content.css in Resources */ = {isa = PBXBuildFile; fileRef = 9CC0A431307981E40003A5A5 /* content.css */; };
 		9CC0A43A307981E40003A5A5 /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 9CC0A432307981E40003A5A5 /* popup.html */; };
 		9CC0A43B307981E40003A5A5 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 9CC0A433307981E40003A5A5 /* icons */; };
@@ -54,6 +55,7 @@
 		9CC0A425307981E40003A5A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CC0A430307981E40003A5A5 /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = popup.js; path = ../../extension/popup.js; sourceTree = "<group>"; };
 		673CD7115F7B68AD24B45B02 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../extension/background.js; sourceTree = "<group>"; };
+		C7F6EF96A21DCBA1BB87129F /* page.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = page.js; path = ../../extension/page.js; sourceTree = "<group>"; };
 		9CC0A431307981E40003A5A5 /* content.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = content.css; path = ../../extension/content.css; sourceTree = "<group>"; };
 		9CC0A432307981E40003A5A5 /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = popup.html; path = ../../extension/popup.html; sourceTree = "<group>"; };
 		9CC0A433307981E40003A5A5 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../extension/icons; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				9CC0A430307981E40003A5A5 /* popup.js */,
 				673CD7115F7B68AD24B45B02 /* background.js */,
+				C7F6EF96A21DCBA1BB87129F /* page.js */,
 				9CC0A431307981E40003A5A5 /* content.css */,
 				9CC0A432307981E40003A5A5 /* popup.html */,
 				9CC0A433307981E40003A5A5 /* icons */,
@@ -219,6 +222,7 @@
 			files = (
 				9CC0A438307981E40003A5A5 /* popup.js in Resources */,
 				ECCB85536737B56EB29DB762 /* background.js in Resources */,
+				152EB75DA70538C0F22ECEC9 /* page.js in Resources */,
 				9CC0A43B307981E40003A5A5 /* icons in Resources */,
 				9CC0A43D307981E40003A5A5 /* popup.css in Resources */,
 				9CC0A43C307981E40003A5A5 /* manifest.json in Resources */,
