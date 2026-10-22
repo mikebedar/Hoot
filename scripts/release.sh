@@ -52,6 +52,11 @@ build() {
     || fail "No valid \"Developer ID Application\" certificate for team $team in your keychain."
   xcrun notarytool history --keychain-profile "$profile" >/dev/null 2>&1 \
     || fail "notarytool keychain profile \"$profile\" is missing or can't sign in (see the comment at the top)."
+  # A system HTTPS proxy that intercepts TLS (Proxyman, Charles, …) makes stapling fail after the
+  # build is already notarized, because Apple's ticket server is reached through the proxy.
+  if [[ "$(scutil --proxy)" == *"HTTPSEnable : 1"* && -z "${HOOT_ALLOW_PROXY:-}" ]]; then
+    fail "A system HTTPS proxy is on ($(scutil --proxy | awk '/HTTPSProxy/ {print $3}'):$(scutil --proxy | awk '/HTTPSPort/ {print $3}')); stapling would fail. Turn it off (e.g. Proxyman/Charles), or set HOOT_ALLOW_PROXY=1 if it doesn't intercept Apple's servers."
+  fi
 
   rm -rf "$WORK"
   mkdir -p "$WORK"
