@@ -56,6 +56,11 @@ html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #primary {
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #primary-inner {
   max-width: none !important;
 }
+/* Hoot's layout replaces YouTube's theater / default-view toggle (content.js also blocks its "t"
+ * shortcut), so hide the button. */
+html[data-ytf-enabled][data-ytf-focus-layout] #movie_player .ytp-size-button {
+  display: none !important;
+}
 /* With its side panel closed (the redesign's "theater" state), YouTube caps the player area and the
  * title-row box at its own player width and centres them. Undo that so both states look identical. */
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy :is(#player, #below > .box) {

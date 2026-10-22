@@ -204,6 +204,17 @@
   document.addEventListener("fullscreenchange", onFullscreenChange);
   document.addEventListener("webkitfullscreenchange", onFullscreenChange);
 
+  // Hoot's layout replaces YouTube's theater / default-view toggle (its button is hidden in
+  // content.css), so swallow the "t" shortcut on video pages. Typing in fields is unaffected.
+  window.addEventListener("keydown", (e) => {
+    if (!current() || (e.key !== "t" && e.key !== "T") || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (!root.hasAttribute("data-ytf-enabled") || !root.hasAttribute("data-ytf-focus-layout") || !onWatchPage()) return;
+    const t = e.target;
+    if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+    e.stopImmediatePropagation();
+    e.preventDefault();
+  }, true);
+
   // YouTube is a single-page app: these fire on every in-app navigation. A new page gets a fresh
   // chance at the full layout even if the previous one fell back.
   document.addEventListener("yt-navigate-finish", () => {
