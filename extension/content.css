@@ -56,6 +56,13 @@ html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #primary {
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #primary-inner {
   max-width: none !important;
 }
+/* With its side panel closed (the redesign's "theater" state), YouTube caps the player area and the
+ * title-row box at its own player width and centres them. Undo that so both states look identical. */
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy :is(#player, #below > .box) {
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 /* Content under the video lines up with the player's edges (16px gutter). */
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #below {
   width: auto !important;
