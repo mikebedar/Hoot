@@ -26,6 +26,7 @@ var OPTIONS = [
   { key: "expandDescription", label: "Auto-expand description",         group: "Watch page" },
   { key: "disableAutoplay",   label: "Turn off autoplay-next",          group: "Watch page" },
   { key: "hideAmbient",       label: "Turn off ambient glow",           group: "Watch page" },
+  { key: "maxQuality",        label: "Always use the highest quality",  group: "Watch page" },
 
   { key: "hideShorts",        label: "Hide Shorts everywhere",          group: "Site-wide" },
   { key: "hideHomeFeed",      label: "Hide home page feed",             group: "Site-wide" },
@@ -39,7 +40,7 @@ var LAYOUT_MODES = ["default", "fullframe"];
 var DEFAULTS = {
   layoutMode: "default",
   enabled: true,
-  hideComments: false, hideChat: true, expandDescription: false, disableAutoplay: true, hideAmbient: true,
+  hideComments: false, hideChat: true, expandDescription: false, disableAutoplay: true, hideAmbient: true, maxQuality: false,
   hideShorts: true, hideHomeFeed: false, hideGuide: false,
 };
 

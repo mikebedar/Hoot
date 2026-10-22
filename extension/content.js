@@ -33,6 +33,7 @@
     // back exactly as YouTube made it.
     if (fallback) root.removeAttribute("data-ytf-enabled");
     applyMode();
+    applyQuality();
 
     // YouTube restores theater mode from this cookie on load, so set it before its scripts run.
     if (settings.enabled) {
@@ -47,6 +48,24 @@
   function applyMode() {
     if (settings.enabled && onWatchPage()) root.setAttribute("data-ytf-mode", settings.layoutMode);
     else root.removeAttribute("data-ytf-mode");
+  }
+
+  // "Always use the highest quality": YouTube keeps its preferred quality in local storage and
+  // applies it to each video, falling back to the best a video actually offers. Writing the 8K
+  // ceiling before the player loads means every video starts at its highest resolution; picking a
+  // lower one in YouTube's menu only lasts until the next page load.
+  function applyQuality() {
+    if (!settings.enabled || !settings.maxQuality) return;
+    try {
+      const now = Date.now();
+      localStorage.setItem("yt-player-quality", JSON.stringify({
+        data: JSON.stringify({ quality: 4320, previousQuality: 4320 }),
+        expiration: now + 365 * 24 * 60 * 60 * 1000,
+        creation: now,
+      }));
+    } catch {
+      // Storage unavailable (e.g. blocked); YouTube just uses its own choice.
+    }
   }
 
   // Default mode keeps the title row on screen under the video, so content.css needs its height,
@@ -117,6 +136,7 @@
     applyMode();
     scheduleCheck();
     if (!settings.enabled || !onWatchPage()) return;
+    applyQuality();
     retry(watchTitleRow);
     retry(ensureTheater);
     if (settings.disableAutoplay) retry(ensureAutoplayOff);

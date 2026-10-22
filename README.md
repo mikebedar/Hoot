@@ -56,7 +56,7 @@ To **uninstall**, untick Hoot in Safari's Extensions settings and drag Hoot out 
 - **The Hoot app has no window or Dock icon.** Opening it just takes you to Hoot in Safari's Extensions settings. Everything else happens in Safari.
 - **The owl button** in Safari's toolbar opens Hoot's settings:
   - **Enable Hoot**: the master switch. Turn it off to see YouTube as normal.
-  - **Watch page**: hide comments, hide live chat and Ask (AI), auto-expand the description, turn off autoplay-next, and turn off YouTube's ambient glow behind the video.
+  - **Watch page**: hide comments, hide live chat and Ask (AI), auto-expand the description, turn off autoplay-next, turn off YouTube's ambient glow behind the video, and always use the highest video quality available (off by default, since it uses more data).
   - **Site-wide**: hide Shorts everywhere, hide the home page feed, and hide the left navigation.
 - **A sad owl** means YouTube served a page layout Hoot doesn't recognise. Rather than half-fix it, Hoot leaves that page exactly as YouTube made it. It tries again on the next page. If you keep seeing the sad owl, please [open an issue](../../issues).
 - **In fullscreen**, Hoot's layout steps aside and YouTube sizes the video. The suggestion grid YouTube shows when you scroll in fullscreen stays hidden.
