@@ -89,10 +89,12 @@ html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary {
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary,
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary-inner,
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary #panels {
-  /* The redesign fades the whole column out (opacity 0 + visibility hidden) whenever its
-   * slide-out panel is closed; we always want it visible since it now sits below the video. */
+  /* The redesign fades the whole column out (opacity 0 + visibility hidden) and makes it ignore
+   * clicks whenever its slide-out panel is closed; we always want it visible and usable since it
+   * now sits below the video. */
   opacity: 1 !important;
   visibility: visible !important;
+  pointer-events: auto !important;
 }
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary {
   /* YouTube sometimes makes this a flex row, which shrink-wraps and centres the panels. */
@@ -153,6 +155,7 @@ html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy:is([fixed-default-
   transform: none !important;
   visibility: visible !important;
   opacity: 1 !important;
+  pointer-events: auto !important;
 }
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary #panels > [target-id="engagement-panel-structured-description"] { order: 1 !important; }
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary #panels > [target-id="engagement-panel-comments-section"] { order: 2 !important; }
@@ -162,6 +165,12 @@ html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #panels > :is([tar
   overflow: visible !important;
 }
 html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #panels > :is([target-id="engagement-panel-structured-description"], [target-id="engagement-panel-comments-section"]) #visibility-button {
+  display: none !important;
+}
+/* The inline panels can't be closed, so drop the description's close buttons: one in its own
+ * header (which also repeats the video title) and one floating over its content. */
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary [target-id="engagement-panel-structured-description"] ytd-structured-description-content-renderer > #items > yt-video-title-header-view-model,
+html[data-ytf-enabled][data-ytf-focus-layout] ytd-watch-flexy #secondary [target-id="engagement-panel-structured-description"] ytd-structured-description-content-renderer > yt-floating-button-view-model {
   display: none !important;
 }
 
