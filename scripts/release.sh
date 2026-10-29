@@ -109,12 +109,13 @@ EOF
   print "$(shasum -a 256 "$ZIP" | awk '{print $1}')  ${ZIP:t}" > "$ZIP.sha256"
   git rev-parse HEAD > "$ZIP.commit"  # publish checks it tags the commit the zip was built from
 
-  # Building registers these copies with macOS (sometimes a moment later); unregister them so Safari
-  # doesn't pick up a stray Hoot alongside the one you actually use.
+  # Delete the build copies (archive, export, DerivedData). macOS registers them with Safari, and
+  # unregistering doesn't stick: it finds them again later, and Safari may then load a stale build
+  # instead of the installed one. The zip is all we keep.
   local lsregister=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
-  sleep 3
-  for a in "$WORK"/**/*.app(N/); do "$lsregister" -u "$a" 2>/dev/null || true; done
-  for a in "$WORK"/**/*.appex(N/); do pluginkit -r "$a" 2>/dev/null || true; done
+  find "$WORK" -name '*.appex' -type d -prune -exec pluginkit -r {} \; 2>/dev/null || true
+  find "$WORK" -name '*.app' -type d -prune -exec "$lsregister" -u {} \; 2>/dev/null || true
+  rm -rf "$WORK"
 
   step "Built $ZIP"
   print "  sha256 $(cut -d' ' -f1 "$ZIP.sha256")"
