@@ -76,8 +76,13 @@
     const meta = document.querySelector("ytd-watch-flexy:not([hidden]) ytd-watch-metadata");
     if (!meta || meta === observedTitle) return !!meta;
     titleObserver?.disconnect();
-    titleObserver = new ResizeObserver(([entry]) => {
-      const h = Math.ceil(entry.borderBoxSize?.[0]?.blockSize ?? entry.target.offsetHeight);
+    titleObserver = new ResizeObserver(() => {
+      // Only the title and channel/actions row need to fit under the video. In YouTube's classic
+      // layout the description lives in this block too; counting it (expanded, it can be taller
+      // than the window) would squeeze the player to nothing.
+      const top = meta.getBoundingClientRect().top;
+      const row = meta.querySelector("#top-row") ?? meta.querySelector("#title");
+      const h = Math.ceil((row ?? meta).getBoundingClientRect().bottom - top);
       if (h > 0) root.style.setProperty("--ytf-title-h", `${h}px`); // 0 while hidden (Full Frame): keep the last value
     });
     titleObserver.observe(meta);
@@ -179,6 +184,7 @@
     if (settings.layoutMode === "fullframe") return !!flexy && shown(player) && player.getBoundingClientRect().width > 200;
     const meta = flexy?.querySelector("ytd-watch-metadata");
     if (!flexy || !player || !shown(meta)) return false;
+    if (player.getBoundingClientRect().height < 100) return false; // squeezed to nothing
     const playerBottom = player.getBoundingClientRect().bottom - 1;
     if (meta.getBoundingClientRect().top < playerBottom) return false;
     if (flexy.matches("[fixed-default-panels], [show-fixed-side-menu]") && flexy.hasAttribute("is-two-columns_")) {
